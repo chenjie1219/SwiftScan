@@ -8,7 +8,7 @@
 
 import Foundation
 
-let bundle = Bundle(path: Bundle.main.path(forResource: "SwiftScanner.bundle", ofType: nil) ?? "")
+let bundle = Bundle(for: HeaderVC.self)
 
 let screenWidth = UIScreen.main.bounds.width
 

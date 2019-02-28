@@ -75,7 +75,7 @@ extension HeaderVC{
     
     func setupUI() {
         
-        closeBtn.setBackgroundImage(closeImage, for: .normal, barMetrics: .default)
+        closeBtn.setBackButtonBackgroundImage(closeImage, for: .normal, barMetrics: .default)
         
     }
 }

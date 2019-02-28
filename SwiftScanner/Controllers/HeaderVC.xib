@@ -28,7 +28,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <items>
                         <navigationItem title="扫一扫" id="YLZ-nZ-xbP">
-                            <barButtonItem key="leftBarButtonItem" image="icon_back.png" style="done" id="Ru6-HQ-tTw">
+                            <barButtonItem key="leftBarButtonItem" image="icon_back" style="done" id="Ru6-HQ-tTw">
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="closeBtnClick:" destination="-1" id="UM0-d7-5RC"/>
@@ -52,6 +52,6 @@
         </view>
     </objects>
     <resources>
-        <image name="icon_back.png" width="19" height="19"/>
+        <image name="icon_back" width="19" height="19"/>
     </resources>
 </document>
