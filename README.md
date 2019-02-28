@@ -65,8 +65,8 @@ Just download the project, and drag and drop the "SwiftScanner" folder in your p
 /// 创建二维码扫描
 let vc = ScannerVC() 
 
-//设置标题、颜色、扫描样式（线条、网格）
-vc.setupScanner("微信扫一扫", .green, .default) { (code) in
+//设置标题、颜色、扫描样式（线条、网格）、提示文字
+vc.setupScanner("微信扫一扫", .green, .default, "将二维码/条码放入框内，即可自动扫描") { (code) in
 //扫描回调方法
 <#code#>
 
@@ -83,8 +83,8 @@ navigationController?.pushViewController(vc, animated: true)
 /// 创建二维码扫描
 let vc = ScannerVC() 
 
-//设置标题、颜色、扫描样式（线条、网格）
-vc.setupScanner("支付宝扫一扫", .blue, .grid) { (code) in
+//设置标题、颜色、扫描样式（线条、网格）、提示文字
+vc.setupScanner("支付宝扫一扫", .blue, .grid, "放入框内，自动扫描") { (code) in
 //扫描回调方法
 <#code#>
 

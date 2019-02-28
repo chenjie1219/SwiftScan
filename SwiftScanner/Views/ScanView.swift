@@ -51,6 +51,9 @@ public class ScanView: UIView {
     
     lazy var contentView = UIView(frame: CGRect(x: scanBorderX, y: scanBorderY, width: scanBorderWidth, height:scanBorderHeight))
     
+    // 提示文字
+    public lazy var tips = ""
+    
     override public init(frame: CGRect) {
         
         super.init(frame: frame)
@@ -103,9 +106,13 @@ extension ScanView{
     
     func setupTips() {
         
+        if tips == "" {
+            return
+        }
+        
         let tipsLbl = UILabel.init()
         
-        tipsLbl.text = "将二维码/条码放置在框内, 即开始扫描"
+        tipsLbl.text = tips
         
         tipsLbl.textColor = .white
         

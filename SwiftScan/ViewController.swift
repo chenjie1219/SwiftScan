@@ -43,7 +43,7 @@ class ViewController: UITableViewController {
         case 2:
             
             //微信
-            vc.setupScanner("微信扫一扫", .green, .default) { (code) in
+            vc.setupScanner("微信扫一扫", .green, .default, "将二维码/条码放入框内，即可自动扫描") { (code) in
                 
                 print(code)
                 
@@ -55,7 +55,7 @@ class ViewController: UITableViewController {
         case 3:
             
             //支付宝
-            vc.setupScanner("支付宝扫一扫", .blue, .grid) { (code) in
+            vc.setupScanner("支付宝扫一扫", .blue, .grid, "放入框内，自动扫描") { (code) in
                 
                 print(code)
                 
