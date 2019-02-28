@@ -17,18 +17,12 @@ protocol CameraViewControllerDelegate: class {
     
 }
 
+
 public class CameraVC: UIViewController {
     
     weak var delegate:CameraViewControllerDelegate?
     
     lazy var animationImage = UIImage()
-    
-    lazy var drawLayer:CALayer = {
-        let layer = CALayer()
-        layer.frame = view.bounds
-        self.scanView.layer.addSublayer(layer)
-        return layer
-    }()
     
     /// 动画样式
     var animationStyle:ScanAnimationStyle = .default{
@@ -270,19 +264,10 @@ extension CameraVC:AVCaptureMetadataOutputObjectsDelegate{
     
     public func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         
-        clearCorners()
-        
         stopCapturing()
         
         guard let object = metadataObjects.first as? AVMetadataMachineReadableCodeObject else {
             return
-        }
-        
-        for obj in metadataObjects {
-            if obj.isKind(of: AVMetadataMachineReadableCodeObject.classForCoder()) {
-                let codeObject = self.videoPreviewLayer?.transformedMetadataObject(for: obj)
-                drawCorners(codeObject: codeObject as! AVMetadataMachineReadableCodeObject)
-            }
         }
         
         delegate?.didOutput(object.stringValue ?? "")
@@ -335,59 +320,4 @@ extension CameraVC{
         
     }
     
-}
-
-extension CameraVC {
-    func drawCorners(codeObject: AVMetadataMachineReadableCodeObject){
-        if codeObject.corners.isEmpty {
-            return
-        }
-        
-        // 创建一个图层
-        let layer = CAShapeLayer()
-        // 设置线条宽度
-        layer.lineWidth = 4.0
-        // 设置画笔颜色
-        layer.strokeColor = UIColor.green.cgColor
-        // 设置填充颜色
-        layer.fillColor = nil
-        
-        // 创建路径
-        let path = UIBezierPath()
-        
-        var index = 0
-        
-        // 从corners数组中取出第0个元素，将这个字典中x/y赋值给point
-        let point = codeObject.corners.first ?? CGPoint.zero
-    
-        // 移动到第一个点，作为起点
-        path.move(to: point)
-        
-        // 移动到其他的点
-        while index < codeObject.corners.count {
-            let point = codeObject.corners[index]
-            path.addLine(to: point)
-            index = index + 1
-        }
-        
-        // 关闭路径连接首尾结点
-        path.close()
-        
-        // 绘制路径
-        layer.path = path.cgPath
-        
-        // 将绘制好的图层添加到drawLayer上
-        self.drawLayer.addSublayer(layer)
-        
-    }
-    
-    func clearCorners(){
-        if self.drawLayer.sublayers == nil || self.drawLayer.sublayers?.count == 0 {
-            return
-        }
-        
-        for layer in self.drawLayer.sublayers ?? [] {
-            layer.removeFromSuperlayer()
-        }
-    }
 }
