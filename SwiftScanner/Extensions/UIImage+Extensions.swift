@@ -76,7 +76,7 @@ extension UIImage{
             
             let imageSize = QRCodeImage.size
             
-            UIGraphicsBeginImageContext(imageSize)
+            UIGraphicsBeginImageContextWithOptions(imageSize, false, UIScreen.main.scale)
             
             QRCodeImage.draw(in: CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height))
             
