@@ -69,7 +69,37 @@ public class CameraVC: UIViewController {
     /// Video preview layer.
     private var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     /// Video capture device. This may be nil when running in Simulator.
-    private lazy var captureDevice = AVCaptureDevice.default(for: .video)
+    private lazy var captureDevice: AVCaptureDevice? = {
+        
+        guard let captureDevice = AVCaptureDevice.default(for: .video) else { return nil }
+        
+        // 自动白平衡
+        if captureDevice.isWhiteBalanceModeSupported(.continuousAutoWhiteBalance) {
+            do {
+                try captureDevice.lockForConfiguration()
+                captureDevice.whiteBalanceMode = .continuousAutoWhiteBalance
+                captureDevice.unlockForConfiguration()
+            } catch {}
+        }
+        // 自动对焦
+        if captureDevice.isFocusModeSupported(.continuousAutoFocus) {
+            do {
+                try captureDevice.lockForConfiguration()
+                captureDevice.focusMode = .continuousAutoFocus
+                captureDevice.unlockForConfiguration()
+            } catch {}
+        }
+        // 自动曝光
+        if captureDevice.isExposureModeSupported(.continuousAutoExposure) {
+            do {
+                try captureDevice.lockForConfiguration()
+                captureDevice.exposureMode = .continuousAutoExposure
+                captureDevice.unlockForConfiguration()
+            } catch {}
+        }
+        
+        return captureDevice
+    }()
     /// Capture session.
     private lazy var captureSession = AVCaptureSession()
     
